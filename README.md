@@ -22,3 +22,7 @@ Both are debug-signed by Unity; install with `pm install -r` (same signature, so
 3. `scripts/build_both.bat` builds both variants: `Unity.exe -batchmode -nographics -executeMethod SlayinBuild.Android`, env `SLAYIN_VARIANT=unlimited` for the cheat.
 
 Toolchain: JDK 11 + NDK r23b in `C:\Users\jonal\AndroidUnity`, SDK root `C:\Users\jonal\AndroidUnity\SDK`.
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=heyitsj0n/Slayin64&type=Date)](https://star-history.com/#heyitsj0n/Slayin64&Date)
