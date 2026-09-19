@@ -1,58 +1,13 @@
-## PrefsManager.cs
-91-	public static int getFamePoints()
-92-	{
-93:#if SLAYIN_CHEAT
-94-		return 999999;   // Slayin64 Unlimited: fame points never run out
-95-#else
-96-		return PlayerPrefs.GetInt("FAME_POINTS", 0);
-97-#endif
-98-	}
-99-
-100-	public static void saveScore(int value)
-101-	{
---
-222-	public static bool getSoldItem(Item item)
-223-	{
-224:		// 2026-09-19: NOT forced true in Unlimited any more - "sold" means already bought, so every shop
-225-		// slot showed SOLD OUT (owner). Unlimited fame points (getFamePoints) let him buy anything instead.
-226-		return PlayerPrefs.GetInt("item" + item.shop + "_" + item.id, 0) == 1;
-227-	}
-228-
-229-	public static void saveGraveItem(Item item)
-230-	{
-231-		PlayerPrefs.SetInt("graveitem" + item.graveType(), item.id);
-232-		PlayerPrefs.Save();
+# Patches applied to the AssetRipper export (Unity 4.5.5 → 2022.3.62f3)
 
-## PlayerModel.cs
-160-	public bool creditFM(int amount)
-161-	{
-162-		if (famePoints - amount >= 0)
-163-		{
-164:#if !SLAYIN_CHEAT
-165-			famePoints -= amount;
-166-#endif
-167-			FPBinding(famePoints);
-168-			PrefsManager.saveFamePoints(famePoints);
-169-			return true;
-170-		}
+Only *our* code is in this repo. The game's own decompiled scripts stay in the local Unity project; the changes to them are described here so they can be re-applied to a fresh export.
 
-## AbstractBehavior.cs (z tie-break)
-	private static int zTieBreak;
-
-	private void Start()
-	{
-		anim = GetComponent<tk2dSpriteAnimator>();
-		alive = true;
-		// Unity 4 resolved equal-depth draw order consistently; Unity 2022 re-sorts equal z every frame, so two
-		// overlapping slimes at z=0 flickered. A unique sub-millimetre z per entity keeps the intended layering
-		// (the game separates layers by >= 0.1) and makes the tie deterministic. (Slayin rebuild 2026-09-19)
-		Vector3 p = base.transform.position;
-		p.z += 0.0001f * (float)((zTieBreak++ % 400) + 1);
-		base.transform.position = p;
-		onStart();
-	}
-
-## ShopView.cs (mask fix hook)
-81-		content = shop.FindChild("ScrollableArea").FindChild("Content");
-82:		ScrollMaskFix.Attach(content);   // stencil-clip the scroll items instead of black depth-mask bars (2026-09-19)
-83-		cursor.parent = content;
+| Area | Change | Why |
+|---|---|---|
+| `Assets/Shader/*.shader`, `Assets/Resources/BlendVertexColor.shader` | Real tk2d shaders (files in this repo). `BlendVertexColor.shader` is overwritten **in place** so its GUID (referenced by every atlas material) is kept. | The export shipped placeholder shaders → sprites rendered as flat quads. |
+| `Assets/Shader/DepthMask.shader` + `Assets/Resources/BlendVertexColorMasked.shader` + `ScrollMaskFix.cs` | tk2d depth masks became stencil masks; `ScrollMaskFix.Attach(content)` is called in `ShopView.showShop()` right after `content` is resolved. | On Unity 2022 the depth masks drew solid black bars over the tavern's title bar, description and background. |
+| `Rb2DCompat.cs` | `Freeze(rb)` helper (isKinematic + zero velocity) used where the game froze coins/bodies. | Unity 2022 kinematic bodies keep their velocity → coins fell through the floor. |
+| `AbstractBehavior.Start()` | After `anim = GetComponent<tk2dSpriteAnimator>()`, nudge z by `0.0001f * ((counter++ % 400) + 1)` before `onStart()`. | Unity 2022 re-sorts equal-z sprites every frame → overlapping slimes flickered. |
+| AdColony plugin | `AndroidInitializePlugin()` returns early; every Android plugin call wrapped in try/catch + `AndroidJNI.ExceptionClear()`. | JNI abort on launch (dead ad SDK). |
+| `PrefsManager.getFamePoints()` / `PlayerModel` spend | Under `#if SLAYIN_CHEAT`: return 999999 / skip the debit. `getSoldItem()` is NOT forced (that made every shop slot "SOLD OUT"). | The "Unlimited" build. |
+| `Assets/Editor/SlayinBuild.cs` | Batch build: IL2CPP, ARM64, targetSdk 34, original icon, same package/title for both variants; `SLAYIN_VARIANT=unlimited` toggles the define + output name. | Reproducible builds from the command line. |

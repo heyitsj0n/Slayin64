@@ -2,13 +2,10 @@
 
 Personal arm64 rebuild of **Slayin** (FDG Entertainment, 2013) for a 64-bit-only Pixel 8 Pro. The original Android APK (2.0.13) shipped only `armeabi-v7a` and cannot run on phones without 32-bit support.
 
-**Private repo, personal use only.** Slayin is © FDG Entertainment / Pixelicious; this repo holds *our* build scripts, compatibility patches and the resulting APKs for a game we own, and nothing here is licensed for redistribution. The Unity project itself (an AssetRipper export of the original APK) is not in the repo — it lives at `C:\Users\jonal\Downloads\SlayinPort` and in `Software\Backups`.
+**Tooling only — bring your own copy of the game.** Slayin is © FDG Entertainment / Pixelicious. This repo contains only our build script, compatibility patches and notes; no game code, assets or APKs are distributed here. You need your own legitimately purchased Slayin 2.0.13 APK (the Unity project is an AssetRipper export of it, kept locally).
 
-## Builds (see Releases)
-- `Slayin64-arm64.apk` — faithful game (kept on the laptop).
-- `Slayin64-Unlimited-arm64.apk` — same package/title (`com.heyitsj0n.slayin64` / "Slayin64") with the `SLAYIN_CHEAT` define: 999,999 fame points and no debit. This is the one installed on the phone.
-
-Both are debug-signed by Unity; install with `pm install -r` (same signature, so either replaces the other).
+## Builds
+No APKs are published here. Our own builds live in a private repo.
 
 ## How it was made
 1. AssetRipper 2.0 export of the original APK (Unity 4.5.5) → opened in **Unity 2022.3.62f3**.
