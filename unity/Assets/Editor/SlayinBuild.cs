@@ -28,7 +28,7 @@ public static class SlayinBuild
         Tools();
         // Owner 2026-09-19: the unlimited build keeps the SAME package + title ("Slayin64") - the phone only
         // ever carries the unlimited one; the faithful build lives on the laptop as Slayin64-arm64.apk.
-        PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, "com.heyitsj0n.slayin64");
+        PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, "com.firestarter1996.slayin64");
         PlayerSettings.productName = "Slayin64";
         PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Android, Cheat ? "SLAYIN_CHEAT" : "");
         // original launcher icon, pulled from the 2016 APK (res/drawable-xxxhdpi/app_icon.png)
@@ -37,7 +37,7 @@ public static class SlayinBuild
         Debug.Log("SlayinBuild: variant=" + (Cheat ? "unlimited" : "normal") + " icon=" + (icon != null));
         PlayerSettings.bundleVersion = "2.0.13";
         PlayerSettings.Android.bundleVersionCode = 101;   // original APK was versionCode 101; Gradle refuses 0
-        PlayerSettings.companyName = "heyitsj0n";
+        PlayerSettings.companyName = "firestarter1996";
         PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
         PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
         PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel24;

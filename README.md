@@ -6,7 +6,7 @@ Slayin is © FDG Entertainment / Pixelicious; this is a fan compatibility rebuil
 
 ## Builds (see Releases)
 - `Slayin64-arm64.apk` — faithful game.
-- `Slayin64-Unlimited-arm64.apk` — same package/title (`com.heyitsj0n.slayin64` / "Slayin64") with the `SLAYIN_CHEAT` define: 999,999 fame points and no debit.
+- `Slayin64-Unlimited-arm64.apk` — same package/title (`com.firestarter1996.slayin64` / "Slayin64") with the `SLAYIN_CHEAT` define: 999,999 fame points and no debit.
 
 Both are debug-signed by Unity; install with `pm install -r` (same signature, so either replaces the other).
 
@@ -25,4 +25,4 @@ Toolchain: JDK 11 + NDK r23b in `C:\Users\jonal\AndroidUnity`, SDK root `C:\User
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=heyitsj0n/Slayin64&type=Date)](https://star-history.com/#heyitsj0n/Slayin64&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=firestarter1996/Slayin64&type=Date)](https://star-history.com/#firestarter1996/Slayin64&Date)
