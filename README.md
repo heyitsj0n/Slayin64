@@ -1,4 +1,4 @@
-# Slayin64
+# ⚔️ Slayin64
 
 Personal arm64 rebuild of **Slayin** (FDG Entertainment, 2013) for a 64-bit-only Pixel 8 Pro. The original Android APK (2.0.13) shipped only `armeabi-v7a` and cannot run on phones without 32-bit support.
 
